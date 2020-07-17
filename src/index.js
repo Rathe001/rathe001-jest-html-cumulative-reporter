@@ -1,17 +1,17 @@
 import fs from 'fs';
-import { updateReportResults, updateReportProperties } from 'jest-json-cumulative-reporter/utils';
-import generateHtml from './utils';
+import { updateReportResults, updateReportProperties, generateHtml } from './utils';
 
 class JestHtmlCumulativeReporter {
   constructor(globalConfig, options) {
     this.globalConfig = globalConfig;
     this.options = {
-      filename: 'report.html',
+      filename: 'report',
       ignore: [],
+      title: 'Bottomline Automation',
       ...options,
     };
-    this.report = fs.existsSync(options.filename)
-      ? JSON.parse(fs.readFileSync(options.filename, 'utf8'))
+    this.report = fs.existsSync(`${options.filename}.json`)
+      ? JSON.parse(fs.readFileSync(`${options.filename}.json`, 'utf8'))
       : { testResults: [] };
   }
 
@@ -24,8 +24,9 @@ class JestHtmlCumulativeReporter {
     this.report = updateReportProperties({
       report: this.report,
     });
-    const htmlReport = generateHtml(this.report);
-    fs.writeFileSync(this.options.filename, htmlReport);
+    const htmlReport = generateHtml(this.report, this.options);
+    fs.writeFileSync(`${this.options.filename}.json`, JSON.stringify(this.report));
+    fs.writeFileSync(`${this.options.filename}.html`, htmlReport);
   }
 }
 
