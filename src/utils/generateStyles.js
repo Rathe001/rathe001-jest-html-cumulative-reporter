@@ -5,11 +5,12 @@ const generateStyles = () => `
     font-size: 12px;
   }
   pre {
-    white-space: normal;
+    white-space: break-spaces;
     font-size: 10px;
     padding: 5px 15px;
     border-left: 5px solid red;
     margin: 10px;
+    background: black;
   }
   h3 {
     padding: 5px 10px;
@@ -77,8 +78,44 @@ const generateStyles = () => `
     color: red;
   }
   .duration {
-    color: #777;
     float: right;
+    height: 25px;
+  }
+  .history {
+    color: ##c1c1c1;
+  }
+  .updated {
+    display: block;
+    color: #c1c1c1;
+    font-size: 11px;
+    margin-left: 15px;
+  }
+  .bar-wrap {
+    float: left;
+    width: 7px;
+    height: 100%;
+    position: relative;
+    margin-right: 1px;
+  }
+  .bar {
+    width: 100%;
+    position: absolute;
+   
+    bottom: 0;
+    left: 0;
+  }
+    .bar.greater {
+      background: #ffc107;
+    }
+    .bar.less {
+      background: #00DFEB;
+    }
+  .time {
+    float: right;
+    font-size: 12px;
+    margin: 13px 0 0 0;
+    width: 50px;
+    text-align: right;
   }
 </style>
   `;

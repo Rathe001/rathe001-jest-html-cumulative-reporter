@@ -2,11 +2,23 @@ import dateformat from 'dateformat';
 import generateStyles from './generateStyles';
 
 const getTestResult = ({
-  duration, failureMessages, fullName, status,
+  created, failureMessages, fullName, historyDuration, status, updated,
 }) => `
 <li class="test-result ${status === 'passed' ? '' : 'failed'}">
   <span class="name">${fullName}</span>
-  <span class="duration">${(duration / 1000).toFixed(2)}s</span>
+  <div class="duration">
+    ${historyDuration.map((h, i) => (`
+      <div class="bar-wrap">
+        <div
+          class="bar ${h > historyDuration[i - 1] ? 'greater' : 'less'}"
+          style="height: ${(Number(h) / Math.max(...historyDuration)) * 100}%;"
+          title="${(h / 1000).toFixed(2)} seconds"
+        ></div>
+      </div>
+    `)).join('')}
+    <span class="time">${(historyDuration[historyDuration.length - 1] / 1000).toFixed(2)}s</span>
+  </div>
+  <div class="updated">Last run: ${dateformat(updated || created, 'mm-dd-yyyy, h:MM:ss TT')}</div>
   ${failureMessages.length ? `<pre>${failureMessages.map((msg) => msg)}</pre>` : ''}
 </li>`;
 
