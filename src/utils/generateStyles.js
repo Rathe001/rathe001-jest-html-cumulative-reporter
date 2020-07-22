@@ -10,7 +10,7 @@ const generateStyles = () => `
     padding: 5px 15px;
     border-left: 5px solid red;
     margin: 10px;
-    background: black;
+    background: #c7c7c7;
   }
   h3 {
     padding: 5px 10px;
