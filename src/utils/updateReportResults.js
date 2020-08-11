@@ -30,13 +30,15 @@ const updateReportResults = ({ options, report, results }) => {
     const mergedSuite = { ...existingSuite, ...newSuite };
 
     if (existingSuite.testResults && newSuite.testResults) {
+      const newOrder = newSuite.testResults.map((rs) => rs.fullName);
+      const oldOrder = existingSuite.testResults.map((rs) => rs.fullName);
       mergedSuite.updated = new Date().getTime();
       const uniqueSuiteTestResults = [
         ...new Set([
-          ...existingSuite.testResults.map((rs) => rs.fullName),
-          ...newSuite.testResults.map((rs) => rs.fullName),
+          ...oldOrder,
+          ...newOrder,
         ]),
-      ].sort((a, b) => a.localeCompare(b));
+      ].sort((a, b) => newOrder.indexOf(a) - newOrder.indexOf(b));
       mergedSuite.testResults = uniqueSuiteTestResults.map((uniqueResult) => {
         const existingTest = existingSuite.testResults.find((rs) => rs.fullName === uniqueResult);
         const newTest = newSuite.testResults.find((rs) => rs.fullName === uniqueResult);
@@ -61,6 +63,7 @@ const updateReportResults = ({ options, report, results }) => {
 
     return mergeSuites(existingSuite, newSuite);
   });
+  // .sort((a, b) => a.localeCompare(b))
 
   return {
     ...report,
