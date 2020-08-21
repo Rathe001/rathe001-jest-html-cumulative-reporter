@@ -82,7 +82,7 @@ const generateStyles = () => `
     height: 25px;
   }
   .history {
-    color: ##c1c1c1;
+    color: #c1c1c1;
   }
   .updated {
     display: block;

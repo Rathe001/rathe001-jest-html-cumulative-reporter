@@ -1,4 +1,5 @@
 const Convert = require('ansi-to-html');
+const escapeHtml = require('escape-html');
 
 const convert = new Convert();
 
@@ -21,7 +22,7 @@ const updateReportResults = ({ options, report, results }) => {
     }
 
     // Format error messages.
-    mergedTest.failureMessages = mergedTest.failureMessages.map((msg) => convert.toHtml(msg));
+    mergedTest.failureMessages = mergedTest.failureMessages.map((msg) => escapeHtml(convert.toHtml(msg.replace(/[\r]+/g, ''))));
 
     return mergedTest;
   };
