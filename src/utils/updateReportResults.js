@@ -1,7 +1,15 @@
 const Convert = require('ansi-to-html');
-const escapeHtml = require('escape-html');
 
 const convert = new Convert();
+
+const replaceTag = (tag) => {
+  const tagsToReplace = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+  };
+  return tagsToReplace[tag] || tag;
+};
 
 const updateReportResults = ({ options, report, results }) => {
   const { ignore = [] } = options;
@@ -22,7 +30,8 @@ const updateReportResults = ({ options, report, results }) => {
     }
 
     // Format error messages.
-    mergedTest.failureMessages = mergedTest.failureMessages.map((msg) => escapeHtml(convert.toHtml(msg.replace(/[\r]+/g, ''))));
+
+    mergedTest.failureMessages = mergedTest.failureMessages.map((msg) => convert.toHtml(msg.replace(/[\r]+/g, '')).replace(/[&<>]/g, replaceTag));
 
     return mergedTest;
   };

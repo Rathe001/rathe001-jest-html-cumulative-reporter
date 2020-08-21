@@ -2,7 +2,7 @@
   "author": "Josh Tummel",
   "name": "jest-html-cumulative-reporter",
   "title": "Jest HTML Cumulative Reporter",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": false,
   "main": "dist/index.js",
   "unpkg": "dist/index.js",
@@ -48,8 +48,7 @@
     "@babel/core": "^7.11.4",
     "@babel/preset-env": "^7.11.0",
     "ansi-to-html": "^0.6.14",
-    "dateformat": "^3.0.3",
-    "escape-html": "^1.0.3"
+    "dateformat": "^3.0.3"
   },
   "scripts": {
     "test": "jest",
