@@ -31,7 +31,10 @@ const updateReportResults = ({ options, report, results }) => {
 
     // Format error messages.
 
-    mergedTest.failureMessages = mergedTest.failureMessages.map((msg) => convert.toHtml(msg.replace(/[\r]+/g, '')).replace(/[&<>]/g, replaceTag));
+    mergedTest.failureMessages = mergedTest.failureMessages.map((msg) => {
+      const replacedMsg = msg.replace(/[\r]+/g, '').replace(/[&<>]/g, replaceTag);
+      return convert.toHtml(replacedMsg);
+    });
 
     return mergedTest;
   };
